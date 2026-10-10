@@ -1,0 +1,103 @@
+[server]
+headless = true
+address = "0.0.0.0"
+port = 8000
+
+[browser]
+gatherUsageStats = false
+
+# 소환사의 협곡 팔레트 — 야간(dark)·주간(light) 두 벌.
+#
+# **왜 두 벌인가**: `[theme]` 하나만 두면 Streamlit이 테마를 단일 모드로 잠그고
+# ⋮ 메뉴의 **Settings 항목 자체를 숨긴다** (실측: Rerun·Clear cache·Print·Record screen만 남음).
+# 게다가 시스템이 라이트 모드면 부팅 2초 동안 **흰 화면**이 보이다가 다크로 튀어
+# "테마가 깨진 것"처럼 보인다. light/dark를 둘 다 정의하면 둘 다 해결된다.
+#
+# primaryColor는 흰 버튼 글자가 읽혀야 하므로(대비 4.5:1) 밝은 골드 대신
+# 깊은 헥스테크 청록을 쓰고, 골드는 링크·코드·사이드바 강조로 돌렸다.
+#
+# 웹폰트(Google Fonts)는 쓰지 않는다 — 이 서버의 chromium-headless-shell이
+# 웹폰트를 로드하면 렌더러가 죽어서 browser_test.py가 돌지 않는다.
+# 라틴 전용 폰트(JetBrains Mono)도 동일하게 죽었으므로 한글 문제가 아니다.
+
+# ── 모드 공통 (모양·타이포) ────────────────────────────────────────────
+[theme]
+baseRadius = "4px"
+buttonRadius = "4px"
+showWidgetBorder = true
+showSidebarBorder = true
+linkUnderline = false
+
+font = "sans-serif"
+codeFont = "monospace"
+baseFontSize = 15
+baseFontWeight = 400
+codeFontSize = "13px"
+headingFontSizes = ["34px", "26px", "20px", "17px", "15px", "13px"]
+headingFontWeights = [700, 700, 600, 600, 500, 500]
+
+# ── 야간: 소환사의 협곡 밤 ─────────────────────────────────────────────
+[theme.dark]
+primaryColor = "#0A7E8C"
+backgroundColor = "#091428"
+secondaryBackgroundColor = "#0F2135"
+textColor = "#F0E6D2"
+linkColor = "#C8AA6E"
+borderColor = "#3C4A5A"
+codeBackgroundColor = "#010A13"
+codeTextColor = "#C8AA6E"
+
+blueColor = "#0AC8B9"
+greenColor = "#0ACF83"
+yellowColor = "#C8AA6E"
+orangeColor = "#CD853F"
+redColor = "#E84057"
+violetColor = "#9B6BDB"
+grayColor = "#A09B8C"
+
+chartCategoricalColors = ["#C8AA6E", "#0AC8B9", "#E84057", "#9B6BDB", "#0ACF83", "#CD853F", "#A09B8C"]
+chartSequentialColors = ["#0B1B2E", "#12304A", "#1A4766", "#245E82", "#30769D",
+                         "#4A8FB3", "#6BA7C4", "#90BFD4", "#B6D7E4", "#DCEFF4"]
+dataframeHeaderBackgroundColor = "#0F2135"
+dataframeBorderColor = "#3C4A5A"
+
+[theme.dark.sidebar]
+backgroundColor = "#010A13"
+secondaryBackgroundColor = "#0F2135"
+codeBackgroundColor = "#010A13"
+textColor = "#F0E6D2"
+borderColor = "#463714"
+primaryColor = "#C8AA6E"
+
+# ── 주간: 협곡 양피지 (같은 골드·청록을 밝은 배경에서 읽히게 어둡혔다) ──
+[theme.light]
+primaryColor = "#0A7E8C"
+backgroundColor = "#F7F4EC"
+secondaryBackgroundColor = "#EBE5D6"
+textColor = "#0A1428"
+linkColor = "#8A6A1F"
+borderColor = "#CFC6B0"
+codeBackgroundColor = "#EBE5D6"
+codeTextColor = "#7A5518"
+
+blueColor = "#0A7E8C"
+greenColor = "#0A8F5B"
+yellowColor = "#8A6A1F"
+orangeColor = "#B4651A"
+redColor = "#C0392B"
+violetColor = "#6B4BA8"
+grayColor = "#5C5648"
+
+chartCategoricalColors = ["#8A6A1F", "#0A7E8C", "#C0392B", "#6B4BA8", "#0A8F5B", "#B4651A", "#5C5648"]
+chartSequentialColors = ["#F2EEE3", "#DCEFF4", "#B6D7E4", "#90BFD4", "#6BA7C4",
+                         "#4A8FB3", "#30769D", "#245E82", "#1A4766", "#12304A"]
+dataframeHeaderBackgroundColor = "#EBE5D6"
+dataframeBorderColor = "#CFC6B0"
+
+[theme.light.sidebar]
+backgroundColor = "#EBE5D6"
+secondaryBackgroundColor = "#DED6C2"
+codeBackgroundColor = "#DED6C2"
+textColor = "#0A1428"
+borderColor = "#C3B894"
+primaryColor = "#7A5518"
