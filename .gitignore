@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.streamlit/secrets.toml
+.ipynb_checkpoints/
+runtime/
+app.log
+env.txt
