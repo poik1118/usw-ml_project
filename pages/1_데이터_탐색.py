@@ -80,7 +80,7 @@ with tab_coef:
         "완성 시 골드·경험 보상이 들어와 합계가 데이터의 순효과와 정확히 일치한다."
     )
 
-    st.subheader("tower 5타 승률 궤적")
+    st.subheader("tower 5타 승률 궤적 (4타까지 내려가다 5타에서 뒤집힌다)")
     traj = []
     for k in range(core.COMMANDS["tower"]["n"] + 1):
         presses = [("tower", i * (core.SEC + 0.1)) for i in range(k)]
@@ -89,7 +89,6 @@ with tab_coef:
             "승률": core.battle(presses, [], engine)["p1"]["score"],
         })
     st.bar_chart(pd.DataFrame(traj).set_index("타수"), y="승률")
-    st.caption("4타까지 내려가다 5타에서 뒤집힌다. 임의로 만든 숫자가 하나도 없다.")
 
 with tab_control:
     st.subheader("골드차를 통제하면 킬·드래곤은 어떻게 되나")
