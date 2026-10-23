@@ -1,5 +1,7 @@
-streamlit
+# 1.65로 고정: record_demo.py가 1.65의 native range 슬라이더에 맞춰져 있고, 문서 측정도 버전에 묶여 있다
+streamlit==1.65.0
 pandas
 scikit-learn
 numpy
 pytest
+# 개발용(직접 설치): playwright — browser_test.py · record_demo.py. 설치법은 browser_test.py 머리말
