@@ -29,11 +29,11 @@
 
 | | |
 |---|---|
-| 데이터 | IBM 외부 공개셋 — 다이아 I~마스터 **9,879경기 × 40열**, 결측 0, `blueWins` 49.9% |
+| 데이터 | Kaggle 공개셋(`bobbyscience`, 2020) — 다이아 I~마스터 **9,879경기 × 40열**, 결측 0, `blueWins` 49.9% |
 | 모델 | 로지스틱 회귀 11피처 · **CV AUC 0.8106** · 1행 추론 0.72ms · 모델 크기 1.4KB |
 | 정직성 | **캘리브레이션 기울기 0.974** · ECE 1.87%p · 구간별 오차 **±1.4%p 이내** |
 | 신호 검정 | 라벨 섞기 200회 → 섞은 AUC 0.495, 실제 0.811 (**한 번도 넘지 못함**) |
-| 테스트 | `pytest -q` **50 passed** |
+| 테스트 | `pytest -q` **51 passed** |
 
 > 이 모델은 **"누가 이길지 콕 집는 모델"이 아니라 "지금 상태가 몇 %인지 정직하게 말하는 모델"** 이다.
 > 접전 구간 AUC는 0.598로 동전던지기에 가깝지만, **캘리브레이션은 전 구간에서 ±1.4%p**다.
@@ -42,9 +42,9 @@
 ## 실행
 
 ```bash
-cd ~/work/week4/gg_battle
+cd ~/work/gg_battle
 pip install -r requirements.txt
-python -m pytest -q                 # 로직 테스트 50개
+python -m pytest -q                 # 로직 테스트 51개
 streamlit run app.py --server.address 0.0.0.0 --server.port 8000
 ```
 
@@ -62,9 +62,13 @@ pages/2_시뮬레이터.py         타자 속도 실험 · 슬라이더 · 명�
 pages/3_1대1_대결.py          큐 배틀 (2기기 동시)
 data/high_diamond_ranked_10min.csv
 data/README.md              40열 전체 + 중복열 경고 + 캡 근거
-test_core.py                로직 테스트 50개
-bot_test.py                 봇 자동 대결 (타/분 9케이스 × 전략 9종)
+test_core.py                로직 테스트 51개 (대결 방 파일 규약 포함)
+bot_test.py                 봇 자동 대결 (타/분 9케이스 × 전략 10종)
 browser_test.py             브라우저 자동 테스트 (화면 로드 · 2세션 대결 · 모바일)
+record_demo.py              백업 영상 자동 녹화 (시연 시나리오 · 1대1 대결 좌우 화면)
+feature_test.py             피처 재설계 측정 (기획서 피드백 3-2)
+pytest.ini                  test_*.py만 수집 — *_test.py는 직접 실행하는 스크립트
+SPEC.md                     기능 명세 · 진행표 · 시연 시나리오
 runtime/                    대결 중 상태 파일. .gitignore에 있다
 docs/                       상세 문서 (아래)
 ```
@@ -181,7 +185,9 @@ AUC로는 LDA·LightGBM과 동률이지만, 아래 증거 요약의 네 지표�
 
 ```bash
 python -m pytest -q     # 모델 검증 4개 포함 (절편 0 · 합계 100% · 타워 범위 · 기준선 초과)
-python bot_test.py 200  # 밸런스 — 타/분 9케이스 × 전략 9종
+python bot_test.py 200  # 밸런스 — 타/분 9케이스 × 전략 10종
+python feature_test.py # 피처 재설계(상호작용·골드당 비율) 5종 — 기획서 피드백 3-2
+python record_demo.py  # 백업 영상 → log/demo_main.mp4 · log/demo_battle.mp4 (앱을 8611로 띄운 뒤)
 ```
 
 ## 문서
@@ -192,4 +198,6 @@ python bot_test.py 200  # 밸런스 — 타/분 9케이스 × 전략 9종
 | [docs/게임설계.md](docs/게임설계.md) | 명령어 11개 · 쿨타임 유도 · 캡 · N타 분할 · 밸런스 봇 검증 · Streamlit 제약 측정 |
 | [data/README.md](data/README.md) | 40열 전체 목록 · 중복열 공선성 경고 · 캡 근거 |
 | [AI_LOG.md](AI_LOG.md) | AI 활용 기록 (프롬프트 로그) |
-| [01_프로젝트_기획서_1page.md](01_프로젝트_기획서_1page.md) | 기획서 (템플릿 01) |
+| [SPEC.md](SPEC.md) | 기능 명세 (템플릿 02) · 진행표 · 시연 시나리오(입력값 고정) |
+| [docs/기획서_v2.md](docs/기획서_v2.md) | 기획서 (템플릿 01) 최신 — 피드백 반영 |
+| [docs/기획서_v1.md](docs/기획서_v1.md) · [docs/기획서_피드백.md](docs/기획서_피드백.md) | 제출본 v1과 교수 피드백 |
